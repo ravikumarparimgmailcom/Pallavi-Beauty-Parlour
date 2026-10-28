@@ -533,10 +533,12 @@ function Contact() {
     event.preventDefault();
 
     const nextErrors = {};
-    if (!form.name.trim()) nextErrors.name = "Please enter your name.";
-    if (!/^[0-9+\s()-]{10,16}$/.test(form.phone.trim())) {
-      nextErrors.phone = "Please enter a valid phone number.";
-    }
+    const phone = form.phone.trim();
+
+    if (!/^[6-9]\d{9}$/.test(phone) || /^(\d)\1{9}$/.test(phone)) {
+          nextErrors.phone =
+              "Please enter a valid 10-digit Indian mobile number.";
+          }
 
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors);
